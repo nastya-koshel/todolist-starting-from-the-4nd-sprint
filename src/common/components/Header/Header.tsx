@@ -1,5 +1,4 @@
-import { changeThemeModeAC } from "@/app/app-reducer"
-import { selectThemeMode } from "@/app/app-selectors"
+import {changeThemeModeAC, selectThemeMode} from "@/app/app-slice"
 import MenuIcon from "@mui/icons-material/Menu"
 import AppBar from "@mui/material/AppBar"
 import Container from "@mui/material/Container"
