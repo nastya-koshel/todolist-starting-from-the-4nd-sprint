@@ -33,8 +33,6 @@ export enum TaskStatus {
   Draft = 3,
 }
 
-console.log(TaskStatus)
-
 export enum TaskPriority {
   Low = 0,
   Middle = 1,

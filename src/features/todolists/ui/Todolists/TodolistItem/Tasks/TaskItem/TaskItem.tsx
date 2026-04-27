@@ -1,10 +1,9 @@
 import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
 import { useAppDispatch } from "@/common/hooks/useAppDispatch"
 import {
-  changeTaskStatusAC,
-  changeTaskTitleAC,
-  deleteTaskAC,
-  type Task,
+  changeTaskStatusTC,
+  changeTaskTitleTC,
+  deleteTaskTC
 } from "@/features/todolists/model/tasks-slice"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Checkbox from "@mui/material/Checkbox"
@@ -12,9 +11,10 @@ import IconButton from "@mui/material/IconButton"
 import ListItem from "@mui/material/ListItem"
 import type { ChangeEvent } from "react"
 import { getListItemSx } from "./TaskItem.styles"
+import { DomainTask, TaskStatus } from "@/features/todolists/api/tasksApi.types.ts"
 
 type Props = {
-  task: Task
+  task: DomainTask
   todolistId: string
 }
 
@@ -22,22 +22,25 @@ export const TaskItem = ({ task, todolistId }: Props) => {
   const dispatch = useAppDispatch()
 
   const deleteTask = () => {
-    dispatch(deleteTaskAC({ todolistId, taskId: task.id }))
+    dispatch(deleteTaskTC({ todolistId, taskId: task.id }))
   }
 
   const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-    const newStatusValue = e.currentTarget.checked
-    dispatch(changeTaskStatusAC({ todolistId, taskId: task.id, isDone: newStatusValue }))
+    const newStatus = e.currentTarget.checked ? TaskStatus.Completed : TaskStatus.New
+    const newTask = {...task, status: newStatus}
+    dispatch(changeTaskStatusTC(newTask))
   }
 
   const changeTaskTitle = (title: string) => {
-    dispatch(changeTaskTitleAC({ todolistId, taskId: task.id, title }))
+    const newTask = {...task, title}
+    dispatch(changeTaskTitleTC(newTask))
+    // dispatch(changeTaskTitleAC({ todolistId, taskId: task.id, title }))
   }
 
   return (
-    <ListItem sx={getListItemSx(task.isDone)}>
+    <ListItem sx={getListItemSx(task.status === TaskStatus.Completed)}>
       <div>
-        <Checkbox checked={task.isDone} onChange={changeTaskStatus} />
+        <Checkbox checked={task.status === TaskStatus.Completed} onChange={changeTaskStatus} />
         <EditableSpan value={task.title} onChange={changeTaskTitle} />
       </div>
       <IconButton onClick={deleteTask}>
