@@ -11,7 +11,10 @@ import IconButton from "@mui/material/IconButton"
 import ListItem from "@mui/material/ListItem"
 import type { ChangeEvent } from "react"
 import { getListItemSx } from "./TaskItem.styles"
-import { DomainTask, TaskStatus } from "@/features/todolists/api/tasksApi.types.ts"
+import { DomainTask } from "@/features/todolists/api/tasksApi.types.ts"
+import { useAppSelector } from "@/common/hooks"
+import { selectTodolists } from "@/features/todolists/model/todolists-slice.ts"
+import { TaskStatus } from "@/common/enums/enums.ts"
 
 type Props = {
   task: DomainTask
@@ -20,6 +23,7 @@ type Props = {
 
 export const TaskItem = ({ task, todolistId }: Props) => {
   const dispatch = useAppDispatch()
+  const todolist = useAppSelector(selectTodolists)
 
   const deleteTask = () => {
     dispatch(deleteTaskTC({ todolistId, taskId: task.id }))
@@ -40,10 +44,11 @@ export const TaskItem = ({ task, todolistId }: Props) => {
   return (
     <ListItem sx={getListItemSx(task.status === TaskStatus.Completed)}>
       <div>
-        <Checkbox checked={task.status === TaskStatus.Completed} onChange={changeTaskStatus} />
-        <EditableSpan value={task.title} onChange={changeTaskTitle} />
+        <Checkbox checked={task.status === TaskStatus.Completed} onChange={changeTaskStatus} disabled={todolist.find(tl => tl.id === todolistId)?.entityStatus === "loading"} />
+        <EditableSpan value={task.title} onChange={changeTaskTitle} todolist={todolist.find(tl => tl.id === todolistId)}/>
       </div>
-      <IconButton onClick={deleteTask}>
+      <span>{new Date(task.addedDate).toLocaleDateString()}</span>
+      <IconButton onClick={deleteTask} disabled={todolist.find(tl => tl.id === todolistId)?.entityStatus === "loading"}>
         <DeleteIcon />
       </IconButton>
     </ListItem>

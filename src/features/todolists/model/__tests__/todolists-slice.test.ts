@@ -4,6 +4,7 @@ import {
   changeTodolistFilterAC, changeTodolistTitleTC, createTodolistTC, deleteTodolistTC, DomainTodolist, FilterValues,
   todolistsReducer
 } from "../todolists-slice.ts"
+import { RequestStatus } from "@/common/types"
 
 let todolistId1: string
 let todolistId2: string
@@ -14,8 +15,8 @@ beforeEach(() => {
   todolistId2 = nanoid()
 
   startState = [
-    { id: todolistId1, title: "What to learn", addedDate: "", order: 0, filter: "all" },
-    { id: todolistId2, title: "What to buy", addedDate: "", order: 0, filter: "all" }
+    { id: todolistId1, title: "What to learn", addedDate: "", order: 0, filter: "all", entityStatus: "idle" },
+    { id: todolistId2, title: "What to buy", addedDate: "", order: 0, filter: "all", entityStatus: "idle" }
   ]
 })
 
@@ -31,7 +32,7 @@ test("correct todolist should be deleted", () => {
 
 test("correct todolist should be created", () => {
   const title = "New todolist"
-  const newTodolist = { id: nanoid(), title: title, addedDate: "", order: 0, filter: "all" as FilterValues}
+  const newTodolist = { id: nanoid(), title: title, addedDate: "", order: 0, filter: "all" as FilterValues, entityStatus: "idle" as RequestStatus }
   const endState = todolistsReducer(
     startState,
     createTodolistTC.fulfilled(newTodolist, 'requestId', title)

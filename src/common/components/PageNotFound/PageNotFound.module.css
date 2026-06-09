@@ -1,0 +1,35 @@
+.title {
+    text-align: center;
+    font-size: 250px;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 50px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/*.link {*/
+/*    font-size: 20px;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+
+/*    margin: 30px auto 0 auto;*/
+/*    padding: 10px 20px;*/
+
+/*    background: #087EA4;*/
+/*    border: 2px solid #087EA4;*/
+/*    color: #fff;*/
+/*    border-radius: 10px;*/
+
+/*    cursor: pointer;*/
+/*}*/
+
+/*.link:hover {*/
+/*    background: #fff;*/
+/*    border: 2px solid #087EA4;*/
+/*    color: #087EA4;*/
+/*    font-weight: bold;*/
+/*}*/

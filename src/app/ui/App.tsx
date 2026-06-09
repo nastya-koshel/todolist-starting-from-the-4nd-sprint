@@ -1,11 +1,12 @@
 import "./App.css"
-import { Main } from "@/app/Main"
-import { Header } from "@/common/components/Header/Header"
+import { Header } from "@/common/components/Header/Header.tsx"
 import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material/styles"
 import { useAppSelector } from "@/common/hooks"
 import { getTheme } from "@/common/theme"
-import {selectThemeMode} from "@/app/app-slice.ts";
+import { selectThemeMode } from "@/app/model/app-slice.ts"
+import { ErrorSnackBar } from "@/common/components"
+import { Routing } from "@/app/ui/Routing/Routing.tsx"
 
 export const App = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -17,7 +18,8 @@ export const App = () => {
       <div className={"app"}>
         <CssBaseline />
         <Header />
-        <Main />
+        <Routing />
+        <ErrorSnackBar />
       </div>
     </ThemeProvider>
   )

@@ -3,13 +3,14 @@ import {
   deleteTaskTC, createTaskTC,
   tasksReducer, TasksState, changeTaskStatusTC, changeTaskTitleTC
 } from "../tasks-slice"
-import { TaskPriority, TaskStatus } from "@/features/todolists/api/tasksApi.types.ts"
 import {
   createTodolistTC,
   deleteTodolistTC,
   FilterValues,
 } from "@/features/todolists/model/todolists-slice.ts"
 import { nanoid } from "@reduxjs/toolkit"
+import { TaskPriority, TaskStatus } from "@/common/enums/enums.ts"
+import { RequestStatus } from "@/common/types"
 
 let startState: TasksState = {}
 
@@ -203,7 +204,7 @@ test("correct task should change its title", () => {
 
 test("array should be created for new todolist", () => {
   const title = "New todolist"
-  const newTodolist = { id: nanoid(), title: title, addedDate: "", order: 0, filter: "all" as FilterValues}
+  const newTodolist = { id: nanoid(), title: title, addedDate: "", order: 0, filter: "all" as FilterValues, entityStatus: "idle" as RequestStatus}
   const endState = tasksReducer(startState, createTodolistTC.fulfilled(newTodolist, 'requestId', title))
 
   const keys = Object.keys(endState)

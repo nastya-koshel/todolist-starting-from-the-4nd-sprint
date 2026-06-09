@@ -1,5 +1,5 @@
-import { CreateItemForm } from "@/common/components/CreateItemForm/CreateItemForm"
-import {createTodolistTC} from "@/features/todolists/model/todolists-slice"
+import { CreateItemForm } from "@/common/components/CreateItemForm/CreateItemForm.tsx"
+import {createTodolistTC} from "@/features/todolists/model/todolists-slice.ts"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid2"
 import { useAppDispatch } from "@/common/hooks"

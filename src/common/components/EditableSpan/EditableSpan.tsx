@@ -1,12 +1,14 @@
 import TextField from "@mui/material/TextField"
 import { type ChangeEvent, useState } from "react"
+import { DomainTodolist } from "@/features/todolists/model/todolists-slice.ts"
 
 type Props = {
   value: string
   onChange: (title: string) => void
+  todolist?: DomainTodolist
 }
 
-export const EditableSpan = ({ value, onChange }: Props) => {
+export const EditableSpan = ({ value, onChange, todolist }: Props) => {
   const [title, setTitle] = useState(value)
   const [isEditMode, setIsEditMode] = useState(false)
 
@@ -35,7 +37,7 @@ export const EditableSpan = ({ value, onChange }: Props) => {
           autoFocus
         />
       ) : (
-        <span onDoubleClick={turnOnEditMode}>{value}</span>
+        <span onDoubleClick={todolist && todolist.entityStatus !== "loading" ? turnOnEditMode : undefined}>{value}</span>
       )}
     </>
   )

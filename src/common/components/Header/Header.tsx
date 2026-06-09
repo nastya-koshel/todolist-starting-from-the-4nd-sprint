@@ -1,4 +1,4 @@
-import { changeThemeModeAC, selectStatus, selectThemeMode } from "@/app/app-slice"
+import { changeThemeModeAC, selectStatus, selectThemeMode } from "@/app/model/app-slice.ts"
 import MenuIcon from "@mui/icons-material/Menu"
 import AppBar from "@mui/material/AppBar"
 import Container from "@mui/material/Container"
@@ -10,6 +10,7 @@ import { getTheme } from "@/common/theme"
 import { containerSx } from "@/common/styles"
 import { NavButton } from "@/common/components"
 import { LinearProgress } from "@mui/material"
+import { NavLink } from "react-router"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -25,11 +26,11 @@ export const Header = () => {
     <AppBar position="static" sx={{ mb: "30px" }}>
       <Toolbar>
         <Container maxWidth={"lg"} sx={containerSx}>
-          <IconButton color="inherit">
-            <MenuIcon />
+          <IconButton color="inherit" href="/">
+              <MenuIcon />
           </IconButton>
           <div>
-            <NavButton>Sign in</NavButton>
+            <NavButton><NavLink to={"/login"} style={{color: "#FFF", textDecoration: "none"}}>Sign in</NavLink></NavButton>
             <NavButton>Sign up</NavButton>
             <NavButton background={theme.palette.primary.dark}>Faq</NavButton>
             <Switch color={"default"} onChange={changeMode} />
