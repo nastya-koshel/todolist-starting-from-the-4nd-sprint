@@ -27,18 +27,20 @@ export const EditableSpan = ({ value, onChange, todolist }: Props) => {
 
   return (
     <>
-      {isEditMode ? (
-        <TextField
-          variant={"outlined"}
-          value={title}
-          size={"small"}
-          onChange={changeTitle}
-          onBlur={turnOffEditMode}
-          autoFocus
-        />
-      ) : (
-        <span onDoubleClick={todolist && todolist.entityStatus !== "loading" ? turnOnEditMode : undefined}>{value}</span>
-      )}
+      {isEditMode
+        ? (
+          <TextField
+            variant={"outlined"}
+            value={title}
+            size={"small"}
+            onChange={changeTitle}
+            onBlur={turnOffEditMode}
+            autoFocus
+          />)
+        : (
+          <span
+            onDoubleClick={todolist && todolist.entityStatus !== "loading" ? turnOnEditMode : undefined}>{value}</span>
+        )}
     </>
   )
 }

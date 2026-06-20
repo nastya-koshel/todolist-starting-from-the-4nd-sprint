@@ -10,6 +10,12 @@ export const Main = () => {
   const createTodolist = (title: string) => {
     dispatch(createTodolistTC(title))
   }
+  // const isLoggedIn = useAppSelector(selectIsLoginIn)
+  //
+  // if (isLoggedIn === false) {
+  //   return <Navigate to={PATH.Login} />
+  // }
+
 
   return (
     <Container maxWidth={"lg"}>

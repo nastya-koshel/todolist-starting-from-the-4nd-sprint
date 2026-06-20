@@ -1,5 +1,5 @@
 import { selectThemeMode } from "@/app/model/app-slice.ts"
-import { useAppSelector } from "@/common/hooks"
+import { useAppDispatch, useAppSelector } from "@/common/hooks"
 import { getTheme } from "@/common/theme"
 import Button from "@mui/material/Button"
 import Checkbox from "@mui/material/Checkbox"
@@ -11,8 +11,9 @@ import Grid from "@mui/material/Grid2"
 import TextField from "@mui/material/TextField"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { LoginInputs } from "@/features/auth/model/types.ts"
-import { loginSchema } from "@/features/auth/model/schemas.ts"
+import { LoginInputs } from "src/features/auth/lib/types.ts"
+import { loginSchema } from "@/features/auth/lib/schemas.ts"
+import { loginTC } from "../../model/auth-slice"
 
 // type LoginInputs = {
 //   email: string
@@ -23,6 +24,8 @@ import { loginSchema } from "@/features/auth/model/schemas.ts"
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
   const theme = getTheme(themeMode)
+  const dispatch = useAppDispatch()
+  // const navigate = useNavigate()
 
   const {
     register,
@@ -32,13 +35,30 @@ export const Login = () => {
     formState: { errors }
   } = useForm<LoginInputs>({
     defaultValues:
-      { email: "example@gmail.com", password: "", rememberMe: false },
+      { email: "free@samuraijs.com", password: "free", rememberMe: false },
     resolver: zodResolver(loginSchema)
   })
   const onSubmit = (data: LoginInputs) => {
-    console.log(data)
+    dispatch(loginTC(data))
+    // ----- 3 -----
+    //   .unwrap().then(() => {
+    //   navigate(PATH.Main)
+    // })
     reset()
   }
+
+  // ----- 1 -----
+  // const navigate = useNavigate()
+  // useEffect(() => {
+  //   if (isLoggedIn === true) {
+  //     navigate(PATH.Main)
+  //   }
+  // }, [isLoggedIn])
+
+  // -----⭐ 2 ⭐-----
+  // if (isLoggedIn === true) {
+  //   return <Navigate to={PATH.Main} />
+  // }
 
   return (
     <Grid container justifyContent={"center"}>

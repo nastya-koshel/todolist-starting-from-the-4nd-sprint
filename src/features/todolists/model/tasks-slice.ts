@@ -6,8 +6,8 @@ import { ResultCode } from "@/common/enums/enums.ts"
 import { createAppSlice, handleServerNetworkError, handleServerAppError } from "@/common/utilits"
 import { getTasksSchema } from "@/features/todolists/model/schemas.ts"
 import { defaultResponseSchema } from "@/common/types"
+import { clearDataAC } from "@/common/actions"
 
-// Создание искусственной задержки: await new Promise((resolve) => setTimeout(resolve, 3000))
 
 export const tasksSlice = createAppSlice({
   name: "tasks",
@@ -76,6 +76,7 @@ export const tasksSlice = createAppSlice({
               return args
             } else {
               handleServerAppError(res.data, dispatch)
+
               return rejectWithValue(null)
             }
           } catch (error: any) {
@@ -150,6 +151,9 @@ export const tasksSlice = createAppSlice({
       })
       .addCase(deleteTodolistTC.fulfilled, (state, action) => {
         delete state[action.payload]
+      })
+      .addCase(clearDataAC, () => {
+        return { }
       })
   },
   selectors: {
